@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>UNIFAMETRO 2023.1 - DAC</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"></link>
+    <script src="https://kit.fontawesome.com/129f4a85d2.js" crossorigin="anonymous"></script>
+</h:head>
+<h:body>
+    <div class="hero is-link is-fullheight is-flex is-justify-content-center is-align-items-center">
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+        <section class="card" style="width: 50vw">
+            <header class="card-header">
+                <p class="card-header-title">
+                    <span class="icon is-small">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="mx-1">Envio de Email</span>
+                </p>
+                <a href="./listagem.xhtml" class="card-header-icon" aria-label="more options">
+                    <span class="icon">
+                        <i class="fas fa-list" aria-hidden="true"></i>
+                    </span>
+                <span>Lista de Emails</span>
+                </a>
+            </header>
+            <div class="card-content">
+                <h:form class="is-flex is-flex-direction-column is-align-items-start">
+                    <p:outputLabel value="Destinatário do Email"/>
+                    <p:inputText class="input" value="#{emailBean.emailSelected.destinatario}" placeholder="pessoa@mail.com"/>
+                    <p:outputLabel value="Corpo do Email"/>
+                    <p:inputTextarea class="textarea" rows="5" columns="max" value="#{emailBean.emailSelected.corpoEmail}" placeholder="Conteúdo do email..."/>
+                    <p:outputLabel value="Data do Email"/>
+                    <p:datePicker value="#{emailBean.emailSelected.dataEnvio}"/>
+                    <p:selectBooleanCheckbox class="checkbox my-1" value="#{emailBean.emailSelected.confirmaLeitura}" itemLabel="Confirmação de leitura"/>
+                </h:form>
+            </div>
+            <footer class="card-footer">
+                <p:commandButton class="card-footer-item button is-success" value="Enviar" action="#{emailBean.save}"/>
+            </footer>
+        </section>
+    </div>
+</h:body>
+</html>

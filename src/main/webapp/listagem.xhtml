@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>UNIFAMETRO 2023.1 - DAC</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"></link>
+    <script src="https://kit.fontawesome.com/129f4a85d2.js" crossorigin="anonymous"></script>
+</h:head>
+<h:body>
+    <div class="hero is-link is-fullheight is-flex is-justify-content-center is-align-items-center">
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+        <section class="card" style="width: 80vw">
+            <header class="card-header">
+                <p class="card-header-title">
+                    <span class="icon is-small">
+                        <i class="fas fa-list"></i>
+                    </span>
+                    <span class="mx-1">Lista de Emails</span>
+                </p>
+                <a href="./index.xhtml" class="card-header-icon" aria-label="Cadastro de Emails">
+                    <span class="icon">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </span>
+                    <span class="mx-1">Cadastro de Emails</span>
+                </a>
+            </header>
+                <h:form id="form" class="card-content">
+                    <p:dataTable class="is-flex is-align-items-center is-justify-content-center" id="table" value="#{emailBean.listaEmails}" var="emailTable" editable="true">
+                        <p:ajax event="rowEdit" listener="#{emailBean.update}" update="table"/>
+                        <p:column headerText="Nome">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{emailTable.destinatario}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="modelInput" value="#{emailTable.destinatario}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Conteudo">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{emailTable.corpoEmail}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{emailTable.corpoEmail}" style="width:100%" label="Conteúdo"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Data">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{emailTable.dataEnvio}" label="Data"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:datePicker value="#{emailTable.dataEnvio}" style="width:100%" label="Data"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Confirmação">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{emailTable.confirmaLeitura}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectBooleanCheckbox class="checkbox my-1" value="#{emailTable.confirmaLeitura}" itemLabel="Confirmação de leitura"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Ações" class="is-flex is-justify-content-space-around">
+                            <p:commandButton value="Excluir" icon="pi pi-trash" action="#{emailBean.delete}"
+                                             ajax="false">
+                                <f:setPropertyActionListener value="#{email}" target="#{emailBean.email}"/>
+                            </p:commandButton>
+                            <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+        </section>
+    </div>
+</h:body>
+</html>
