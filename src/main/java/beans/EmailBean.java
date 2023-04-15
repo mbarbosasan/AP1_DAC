@@ -56,6 +56,10 @@ public class EmailBean {
         }
     }
 
+    public void emitConfirmationMessage() {
+        MessagesUtil.successMessage("Confirmação de leitura solicitada com sucesso.");
+    }
+
     public void getQuantidadeEmails() {
         try {
             Integer size = EmailDAO.getCountOfEmails();
@@ -73,7 +77,7 @@ public class EmailBean {
         return emailSelected;
     }
     public List<Email> getListaEmails() {
-        if (this.listaEmails.isEmpty()) {
+        if (this.listaEmails.size() != EmailDAO.getAll().size()) {
             this.listaEmails = EmailDAO.getAll();
         }
         return this.listaEmails;
